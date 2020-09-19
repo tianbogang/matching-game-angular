@@ -1,0 +1,15 @@
+<div class="container" fxLayout="column">
+    <div fxFlex fxLayout="row" fxLayoutAlign="center center">
+        <img class="mr-10" src="/assets/images/logo.png" width="48" height="48" />
+        <h1 class="mhs">Matching Game</h1>
+    </div>  
+    <div fxFlex fxLayoutAlign="center center">
+      <h3 class="center-text mhs">Please select game difficulty</h3>  
+    </div>
+    <div fxFlex fxLayout="row" fxLayoutAlign="center center">
+      <button mat-raised-button color="basic" class="homeButton" (click)="startNewGame(GameDifficulty.Easy)">Easy</button>
+      <button mat-raised-button color="primary" class="homeButton" (click)="startNewGame(GameDifficulty.Medium)">Medium</button>
+      <button mat-raised-button color="warn" class="homeButton" (click)="startNewGame(GameDifficulty.Hard)">Hard</button>
+    </div>
+</div>
+  

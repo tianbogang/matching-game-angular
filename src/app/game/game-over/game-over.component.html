@@ -1,0 +1,11 @@
+<div class="container" fxLayout="column">
+    <div fxFlex fxLayoutAlign="center center">
+      <h1 class="center-text mhs">Game Over</h1>  
+    </div>
+    <div fxFlex fxLayoutAlign="center center">
+      <h3 class="center-text mhs">Time used: {{ timeUsed | date:'HH:mm:ss' }}</h3>  
+    </div>
+    <div fxFlex fxLayout="row" fxLayoutAlign="center center">
+      <button mat-raised-button color="basic" class="homeButton" (click)="playAgain()">Play Again</button>
+    </div>
+</div>
