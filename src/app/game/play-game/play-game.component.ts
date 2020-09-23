@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CardState } from 'src/app/model/enums';
 import { Game } from '../../model/game';
 import { Card } from '../../model/card';
-import { GameServiceService } from '../../service/game-service.service';
+import { GameService } from '../../service/game-service.service';
 import { StopwatchComponent } from '../stopwatch/stopwatch.component';
 
 @Component({
@@ -23,7 +23,7 @@ export class PlayGameComponent implements OnInit {
 
   public gameIcon: string;
 
-  constructor(private router: Router, private route: ActivatedRoute, private service: GameServiceService) {
+  constructor(private router: Router, private route: ActivatedRoute, private service: GameService) {
   }
 
   public get CardState(): typeof CardState {

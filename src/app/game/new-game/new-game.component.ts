@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { GameDifficulty } from '../../model/enums';
-import { GameServiceService } from '../../service/game-service.service';
+import { GameService } from '../../service/game-service.service';
 
 @Component({
   selector: 'app-new-game',
@@ -10,7 +10,7 @@ import { GameServiceService } from '../../service/game-service.service';
 })
 export class NewGameComponent implements OnInit {
 
-  constructor(private router: Router, private service: GameServiceService) { }
+  constructor(private router: Router, private service: GameService) { }
 
   ngOnInit(): void {
   }

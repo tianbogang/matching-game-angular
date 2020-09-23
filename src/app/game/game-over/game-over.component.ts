@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { GameServiceService } from '../../service/game-service.service';
+import { GameService } from '../../service/game-service.service';
 
 @Component({
   selector: 'app-game-over',
@@ -9,7 +9,7 @@ import { GameServiceService } from '../../service/game-service.service';
 })
 export class GameOverComponent implements OnInit {
 
-  constructor(private router: Router, private service: GameServiceService) { }
+  constructor(private router: Router, private service: GameService) { }
 
   public timeUsed: Date;
 

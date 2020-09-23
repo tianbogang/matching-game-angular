@@ -4,7 +4,7 @@ import { Game } from '../model/game';
 @Injectable({
   providedIn: 'root'
 })
-export class GameServiceService {
+export class GameService {
 
   public currentGame: Game;
 
