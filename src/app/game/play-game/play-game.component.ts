@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
+import { Component, OnInit, ViewChildren, QueryList, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { CardState } from 'src/app/model/enums';
@@ -12,7 +12,7 @@ import { StopwatchComponent } from '../stopwatch/stopwatch.component';
   templateUrl: './play-game.component.html',
   styleUrls: ['./play-game.component.css']
 })
-export class PlayGameComponent implements OnInit {
+export class PlayGameComponent implements OnInit, AfterViewInit {
 
   @ViewChildren (StopwatchComponent) stopWatch: QueryList<StopwatchComponent>;
 
@@ -40,7 +40,6 @@ export class PlayGameComponent implements OnInit {
     this.cardset2 = this.service.currentGame.cardset2;
   }
 
-  // tslint:disable-next-line: use-lifecycle-interface
   ngAfterViewInit() {
     this.stopWatch.first.start();
   }

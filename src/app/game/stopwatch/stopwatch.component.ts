@@ -1,5 +1,5 @@
 import { LifecycleHooks } from '@angular/compiler/src/lifecycle_reflector';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { timer } from 'rxjs';
 
 @Component({
@@ -7,7 +7,7 @@ import { timer } from 'rxjs';
   templateUrl: './stopwatch.component.html',
   styleUrls: ['./stopwatch.component.css']
 })
-export class StopwatchComponent implements OnInit {
+export class StopwatchComponent implements OnInit, OnDestroy {
 
   constructor() { }
 
@@ -25,7 +25,6 @@ export class StopwatchComponent implements OnInit {
     });
   }
 
-  // tslint:disable-next-line: use-lifecycle-interface
   ngOnDestroy() {
     this.tick.unsubscribe();
   }
