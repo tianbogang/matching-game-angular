@@ -46,4 +46,69 @@ export class Game {
             this.cardset2.push(card);
         }
     }
+
+    public updateCardInCardsetUno(point: number) {
+        const card = this.cardset1.find(c => c.point === point);
+        if (card !== undefined) {
+            this.toggleStateInSameCardset(this.cardset1, card);
+            this.updateStateBetweenCardset(this.cardset2, card);
+        }
+    }
+
+    public updateCardInCardsetDue(point: number) {
+        const card = this.cardset2.find(c => c.point === point);
+        if (card !== undefined) {
+            this.toggleStateInSameCardset(this.cardset2, card);
+            this.updateStateBetweenCardset(this.cardset1, card);
+        }
+    }
+
+    toggleStateInSameCardset(cardset: Card[], card: Card) {
+        const selectedCard = cardset.find(c => c.state === CardState.OpenGreen);
+        if (selectedCard !== undefined) {
+            selectedCard.state = CardState.Closed;
+            card.state = CardState.OpenGreen;
+        }
+    }
+
+    updateStateBetweenCardset(cardset: Card[], card: Card) {
+        const selectedCard = cardset.find(c => c.state === CardState.OpenGreen);
+        if (selectedCard !== undefined) {
+            if (selectedCard.point === card.point) {
+                card.state = CardState.OpenGreen;
+                setTimeout (() => {
+                    selectedCard.state = CardState.Hidden;
+                    card.state = CardState.Hidden;
+                }, 1000);
+            } else {
+                card.state = CardState.OpenRed;
+                setTimeout (() => {
+                    card.state = CardState.Closed;
+                }, 3000);
+            }
+        } else {
+          card.state = CardState.OpenGreen;
+        }
+    }
+
+    public remainCards(): number {
+        return (
+            this.cardset1.filter(c => c.state !== CardState.Hidden).length +
+            this.cardset2.filter(c => c.state !== CardState.Hidden).length
+        );
+    }
+
+    public matchedCards(): boolean {
+        return (
+            this.cardset1.filter(c => c.state === CardState.OpenGreen).length !== 0 &&
+            this.cardset2.filter(c => c.state === CardState.OpenGreen).length !== 0
+        );
+    }
+
+    public anyRedCard(): boolean {
+        return (
+            this.cardset1.filter(c => c.state === CardState.OpenRed).length !== 0 ||
+            this.cardset2.filter(c => c.state === CardState.OpenRed).length !== 0
+        );
+    }
 }

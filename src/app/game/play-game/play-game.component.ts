@@ -18,10 +18,9 @@ export class PlayGameComponent implements OnInit, AfterViewInit {
 
   public difficulty: number;
 
+  public game: Game;
   public cardset1: Card[];
   public cardset2: Card[];
-
-  public gameIcon: string;
 
   constructor(private router: Router, private route: ActivatedRoute, private service: GameService) {
   }
@@ -35,64 +34,54 @@ export class PlayGameComponent implements OnInit, AfterViewInit {
       this.difficulty = Number(params.get('difficulty'));
     });
 
-    this.gameIcon = 'verified_user';
-    this.cardset1 = this.service.currentGame.cardset1;
-    this.cardset2 = this.service.currentGame.cardset2;
+    this.game = this.service.currentGame;
+    this.cardset1 = this.game.cardset1;
+    this.cardset2 = this.game.cardset2;
   }
 
   ngAfterViewInit() {
     this.stopWatch.first.start();
   }
 
-  onClickSet1(card: Card): void {
-    this.toggleStateInSameCardset(this.cardset1, card);
-    this.updateStateBetweenCardset(this.cardset2, card);
+  noMoreCard() {
+    return (this.game.remainCards() === 0);
   }
 
-  onClickSet2(card: Card): void {
-    this.toggleStateInSameCardset(this.cardset2, card);
-    this.updateStateBetweenCardset(this.cardset1, card);
+  matchedCards() {
+    return this.game.matchedCards();
   }
 
-  toggleStateInSameCardset(cardset: Card[], card: Card): void {
-    const selectedCard = cardset.find(c => c.state === CardState.OpenGreen);
-    if (selectedCard !== undefined) {
-      selectedCard.state = CardState.Closed;
-      card.state = CardState.OpenGreen;
-    }
+  anyRedCard() {
+    return this.game.anyRedCard();
   }
 
-  updateStateBetweenCardset(cardset: Card[], card: Card): void {
-    const selectedCard = cardset.find(c => c.state === CardState.OpenGreen);
-    if (selectedCard !== undefined) {
-      if(selectedCard.point === card.point) {
-        card.state = CardState.OpenGreen;
-        this.gameIcon = 'thumb_up';
-        setTimeout (() => {
-          selectedCard.state = CardState.Hidden;
-          card.state = CardState.Hidden;
-          this.gameIcon = 'verified_user';
-
-          if (this.noMoreCardToPlay(this.cardset1) && this.noMoreCardToPlay(this.cardset2)) {
-            this.stopWatch.first.stop();
-            this.service.currentGame.timeUsed = this.stopWatch.first.counter;
-            this.router.navigate(['gameover']);
-          }
-        }, 1000);
-      } else {
-        card.state = CardState.OpenRed;
-        this.gameIcon = 'thumb_down';
-        setTimeout (() => {
-          card.state = CardState.Closed;
-          this.gameIcon = 'verified_user';
-        }, 3000);
-      }
+  public gameIcon(): string {
+    if (this.matchedCards()) {
+      return 'thumb_up';
+    } else if (this.anyRedCard()) {
+      return 'thumb_down';
     } else {
-      card.state = CardState.OpenGreen;
+      return 'verified_user';
     }
   }
 
-  noMoreCardToPlay(cardset: Card[]): boolean {
-    return (cardset.length === cardset.filter(c => c.state === CardState.Hidden).length);
+  onClickSet1(card: Card) {
+    this.game.updateCardInCardsetUno(card.point);
+    this.checkAndStop();
+  }
+
+  onClickSet2(card: Card) {
+    this.game.updateCardInCardsetDue(card.point);
+    this.checkAndStop();
+  }
+
+  checkAndStop() {
+    setTimeout (() => {
+        if (this.noMoreCard()) {
+          this.stopWatch.first.stop();
+          this.game.timeUsed = this.stopWatch.first.counter;
+          this.router.navigate(['gameover']);
+        }
+    }, 1000);
   }
 }
