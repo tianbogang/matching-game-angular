@@ -1,10 +1,10 @@
 <div class="container" fxLayout="column">
-    <div fxFlex fxLayoutAlign="space-evenly center">
+    <div fxFlex=100 fxLayoutAlign="space-evenly center">
       <mat-icon>{{gameIcon()}}</mat-icon>
       <h3 class="center-text normal-text">Play Game: {{difficulty}} cards</h3>  
       <app-stopwatch></app-stopwatch>
     </div>
-    <div fxLayout="row wrap" fxLayoutAlign="start center" class="card-set">
+    <div fxFlex=100 fxLayout="row wrap" fxLayoutAlign="start center" class="card-set">
       <ng-container *ngFor="let card of cardset1">
         <button class="card card-closed" *ngIf="card.state === CardState.Closed" (click)="onClickSet1(card)"></button>
         <button class="card card-green" *ngIf="card.state === CardState.OpenGreen" (click)="onClickSet1(card)">{{card.point}}</button>
@@ -12,7 +12,7 @@
         <div class="card card-hidden" *ngIf="card.state === CardState.Hidden"></div>
       </ng-container>
     </div>
-    <div fxLayout="row wrap" fxLayoutAlign="start center" class="card-set">
+    <div fxFlex=100 fxLayout="row wrap" fxLayoutAlign="start center" class="card-set">
       <ng-container *ngFor="let card of cardset2">
         <button class="card card-closed" *ngIf="card.state === CardState.Closed" (click)="onClickSet2(card)"></button>
         <button class="card card-green" *ngIf="card.state === CardState.OpenGreen" (click)="onClickSet2(card)">{{card.point}}</button>
