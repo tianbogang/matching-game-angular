@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Card } from './card';
-import { CardState } from './enums';
+import { CardState, PlayerFace } from './enums';
+import { BehaviorSubject } from 'rxjs';
 
 declare function shuffle(array);
 
@@ -13,6 +14,8 @@ export class Game {
     public cardset1: Card[];
     public cardset2: Card[];
     public timeUsed: Date;
+
+    public player = new BehaviorSubject<PlayerFace>(PlayerFace.Calm);
 
     constructor() {}
 
@@ -68,6 +71,7 @@ export class Game {
         if (selectedCard !== undefined) {
             selectedCard.state = CardState.Closed;
             card.state = CardState.OpenGreen;
+            this.player.next(PlayerFace.Calm);
         }
     }
 
@@ -76,18 +80,23 @@ export class Game {
         if (selectedCard !== undefined) {
             if (selectedCard.point === card.point) {
                 card.state = CardState.OpenGreen;
+                this.player.next(PlayerFace.Happy);
                 setTimeout (() => {
                     selectedCard.state = CardState.Hidden;
                     card.state = CardState.Hidden;
+                    this.player.next(PlayerFace.Calm);
                 }, 1000);
             } else {
                 card.state = CardState.OpenRed;
+                this.player.next(PlayerFace.Unhappy);
                 setTimeout (() => {
                     card.state = CardState.Closed;
+                    this.player.next(PlayerFace.Calm);
                 }, 3000);
             }
         } else {
           card.state = CardState.OpenGreen;
+          this.player.next(PlayerFace.Calm);
         }
     }
 
@@ -95,20 +104,6 @@ export class Game {
         return (
             this.cardset1.filter(c => c.state !== CardState.Hidden).length +
             this.cardset2.filter(c => c.state !== CardState.Hidden).length
-        );
-    }
-
-    public matchedCards(): boolean {
-        return (
-            this.cardset1.filter(c => c.state === CardState.OpenGreen).length !== 0 &&
-            this.cardset2.filter(c => c.state === CardState.OpenGreen).length !== 0
-        );
-    }
-
-    public anyRedCard(): boolean {
-        return (
-            this.cardset1.filter(c => c.state === CardState.OpenRed).length !== 0 ||
-            this.cardset2.filter(c => c.state === CardState.OpenRed).length !== 0
         );
     }
 }
