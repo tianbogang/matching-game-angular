@@ -6,7 +6,7 @@
     </div>
     <div fxFlex=100 fxLayout="row wrap" fxLayoutAlign="start center" class="card-set">
       <ng-container *ngFor="let card of cardset1">
-        <button class="card card-closed" *ngIf="card.state === CardState.Closed" (click)="onClickSet1(card)"></button>
+        <div class="card card-closed" *ngIf="card.state === CardState.Closed" (click)="onClickSet1(card)"></div>
         <div class="card card-green" *ngIf="card.state === CardState.OpenGreen">{{card.point}}</div>
         <div class="card card-red" *ngIf="card.state === CardState.OpenRed">{{card.point}}</div>
         <div class="card card-hidden" *ngIf="card.state === CardState.Hidden"></div>
@@ -14,7 +14,7 @@
     </div>
     <div fxFlex=100 fxLayout="row wrap" fxLayoutAlign="start center" class="card-set">
       <ng-container *ngFor="let card of cardset2">
-        <button class="card card-closed" *ngIf="card.state === CardState.Closed" (click)="onClickSet2(card)"></button>
+        <div class="card card-closed" *ngIf="card.state === CardState.Closed" (click)="onClickSet2(card)"></div>
         <div class="card card-green" *ngIf="card.state === CardState.OpenGreen">{{card.point}}</div>
         <div class="card card-red" *ngIf="card.state === CardState.OpenRed">{{card.point}}</div>
         <div class="card card-hidden" *ngIf="card.state === CardState.Hidden"></div>

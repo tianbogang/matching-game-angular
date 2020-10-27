@@ -3,7 +3,7 @@
 }
 
 .card-set {
-    background-color: #c8dfd7;
+    background-color: #84d6ba;
     margin-left: 30px;
     margin-right: 30px;
     margin-top: 10px;
@@ -19,8 +19,8 @@
     }
     to {
       transform: rotateY(0deg);
-      color: white;
-      background-color: green;
+      color: green;
+      background-color: white;
     }
 }
 
@@ -34,53 +34,54 @@
 }
 
 @keyframes spin-to-hidden {
-    from {
-      background-color: green;
+    from {      
+      background-color: white;
     }
     to {
       background-color: transparent;
-      border: 0px white;
     }
 }
 
 .card {
-    width: 50px;
-    height: 50px;
+    width: 80px;
+    height: 100px;
     margin-left: 10px;
     margin-right: 10px;
     margin-top: 10px;
     margin-bottom: 10px;
+    font-size: 60px;
     display: flex;
     align-items: center;
     justify-content: center;
     outline: none !important;
-    border: 0px solid;
-    border-radius: 4px;
+    border-radius: 8px;
 }
 
 .card:focus, .card:active {
     outline: none !important;
-    border: 0px solid;
 }
 
 .card-closed {
-    background-color: white;
+    border: 4px solid white;
+    background-color: #458ca9;
 }
 
 .card-green {
-    color: white;
-    background-color: green;
+    color: green;
+    background-color: white;
     animation: spin-to-green 0.5s linear;
+    border: 4px solid #84d6ba;
 }
 
 .card-red {
-    color: white;
-    background-color: red;
+    color: red;
+    background-color: white;
     animation: spin-to-red 0.5s linear;
+    border: 4px solid #84d6ba;
 }
 
 .card-hidden {
     background-color: transparent;
-    border: 0px white;
+    border: 4px solid transparent;
     animation: spin-to-hidden 0.5s ease-out;
 }
